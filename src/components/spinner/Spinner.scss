@@ -1,0 +1,21 @@
+.spinner {
+   display: block;
+   position: relative;
+   top: 50%;
+   left: 50%;
+   width: 100px;
+   height: 100px;
+   border-radius: 50%;
+   background-color: inherit;
+   border: 3px dashed red;
+   animation: rot 3s;
+}
+
+@keyframes rot {
+   from {
+      transform: translate(-50%, -50%) rotate(0deg);
+   }
+   to {
+      transform: translate(-50%, -50%) rotate(360deg);
+   }
+}
