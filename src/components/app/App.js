@@ -1,44 +1,35 @@
-import { Component } from "react";
+import { lazy, Suspense } from 'react';
+import { Route, Routes, BrowserRouter, Link } from 'react-router-dom';
+
 
 
 import AppHeader from "../appHeader/AppHeader";
-import RandomChar from "../randomChar/RandomChar";
-import CharList from "../charList/CharList";
-import CharInfo from "../charInfo/CharInfo";
-import ErrorBoundary from "../errorBoundary/ErrorBoundary"
-
-import decoration from '../../resources/img/vision.png';
-
-class App extends Component {
-
-    state = {
-        selectedChar: null
-    }
+import { MainPage, ComicsPage, SingleComicPage } from '../pages';
 
 
-    onGetID = (id) => {
-        this.setState({ selectedChar: id })
-    }
+const ErrorPage = lazy(() => import('../pages/ErrorPage'));
 
-    render() {
-        return (
+const App = () => {
+    return (
+        <BrowserRouter>
             <div className="app">
                 <AppHeader />
                 <main>
-                    <RandomChar />
-                    <div className="char__content">
-                        <CharList onGetID={this.onGetID} />
+                    <Suspense fallback={<span>Loading...</span>}>
+                        <Routes>
+                            <Route path="/" element={<MainPage />} />
+                            <Route path="/comics" element={<ComicsPage />} />
+                            <Route path='/comics/:id' element={<SingleComicPage />} />
+                            <Route path='*' element={<ErrorPage />} />
+                        </Routes>
+                    </Suspense>
 
-
-                        <CharInfo id={this.state.selectedChar} />
-
-
-                    </div>
-                    <img className="bg-decoration" src={decoration} alt="vision" />
                 </main>
             </div>
-        )
-    }
+
+        </BrowserRouter>
+    )
 }
+
 
 export default App;

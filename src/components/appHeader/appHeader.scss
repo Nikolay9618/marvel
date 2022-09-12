@@ -1,4 +1,4 @@
-@import '../../style/variables.scss';
+@import "../../style/variables.scss";
 
 .app {
     &__header {
@@ -28,4 +28,8 @@
             }
         }
     }
+}
+
+.active {
+    color: #9f0013;
 }

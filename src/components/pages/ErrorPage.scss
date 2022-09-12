@@ -1,0 +1,19 @@
+.error__row {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}
+
+.error__text {
+   font-size: 30px;
+   margin-bottom: 20px;
+   span {
+      color: red;
+   }
+}
+
+.error__btn {
+   cursor: pointer;
+   color: crimson;
+}
