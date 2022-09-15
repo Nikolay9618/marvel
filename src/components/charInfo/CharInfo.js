@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import Spinner from '../spinner/Spinner';
-import ErrorMessage from '../errorMessage/ErrorMessage';
-import Skeleton from '../skeleton/Skeleton';
+import setContent from '../../utils/setContent';
 
 import './charInfo.scss';
 import useMarvelService from '../../services/MarvelService';
@@ -10,24 +8,17 @@ import useMarvelService from '../../services/MarvelService';
 const CharInfo = (props) => {
 
     const [char, setChar] = useState(null)
-
-
-
-
-    const { loading, error, getCharacter, clearError } = useMarvelService();
+    const { loading, error, getCharacter, clearError, process, setProcess } = useMarvelService();
 
     useEffect(() => {
         updateChar();
     }, [props.id])
 
 
-
     const onChatLoaded = (char) => {
         setChar(char);
 
     }
-
-
 
     const updateChar = () => {
         const { id } = props;
@@ -38,30 +29,22 @@ const CharInfo = (props) => {
         clearError()
         getCharacter(id)
             .then(onChatLoaded)
-
+            .then(() => setProcess('confirmed'))
     }
-
-    const skeleton = char || loading || error ? null : <Skeleton />
-    const errorMessage = error ? <ErrorMessage /> : null
-    const spinner = loading ? <Spinner /> : null
-    const content = !(loading || error || !char) ? <View char={char} /> : null;
 
 
     const id = props.id
     return (
         <div className="char__info">
-            {skeleton}
-            {errorMessage}
-            {spinner}
-            {content}
+            {setContent(process, View, char)}
         </div>
     )
 }
 
 
-const View = ({ char }) => {
+const View = ({ data }) => {
 
-    const { name, description, thumbnail, homepage, wiki, comics } = char;
+    const { name, description, thumbnail, homepage, wiki, comics } = data;
 
     let imgStyle = { objectFit: 'cover' }
 
