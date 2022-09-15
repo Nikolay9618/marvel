@@ -1,9 +1,11 @@
+import { useEffect } from 'react';
 import { lazy, Suspense } from 'react';
 import { Route, Routes, BrowserRouter, Link } from 'react-router-dom';
 
 
 
 import AppHeader from "../appHeader/AppHeader";
+import CustomForm from '../form/form';
 import { MainPage, ComicsPage, SingleComicPage } from '../pages';
 
 
@@ -21,15 +23,14 @@ const App = () => {
                             <Route path="/comics" element={<ComicsPage />} />
                             <Route path='/comics/:id' element={<SingleComicPage />} />
                             <Route path='*' element={<ErrorPage />} />
+                            <Route path='/form' element={<CustomForm />} />
                         </Routes>
                     </Suspense>
 
                 </main>
             </div>
-
         </BrowserRouter>
     )
 }
-
 
 export default App;
